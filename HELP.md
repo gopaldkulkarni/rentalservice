@@ -1,20 +1,17 @@
-# Getting Started
+# Rental Service
 
-### Reference Documentation
-For further reference, please consider the following sections:
+## This is a Micro Service which facilitates following requirements
+1. API to create a rental
+2. API to start a rental
+3. API to end a rental
+4. API to get available rental models
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.12/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.12/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.7.12/reference/htmlsingle/#web)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.7.12/reference/htmlsingle/#using.devtools)
-* [OAuth2 Client](https://docs.spring.io/spring-boot/docs/2.7.12/reference/htmlsingle/#web.security.oauth2.client)
-* [OAuth2 Resource Server](https://docs.spring.io/spring-boot/docs/2.7.12/reference/htmlsingle/#web.security.oauth2.server)
+## Integration
+The Rental service uses BikeInventoryService (BikeService) to verify the  status of the bike
+The Rental Service uses A notification service to notify if the rental is about to expire. 
+It publishes every API invocation as an event to provide realtime analytics and monitoring
 
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-
+#### Low level packages
+1. Client package - Clients to connect to Bike Service, Kafka, Notification Service
+2. util package - Contains common utilities like JSON parsing etc
+3. scheduler package - We have two background jobs. 1) Periodically archive the completed/cancelled rental records to keep the QPS support high. 2) Keep checking the rental duration expiry. If near to expiry send the push notification.
