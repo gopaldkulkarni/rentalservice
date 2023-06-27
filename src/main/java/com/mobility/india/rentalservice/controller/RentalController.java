@@ -1,5 +1,8 @@
 package com.mobility.india.rentalservice.controller;
 
+import com.mobility.india.rentalservice.common.RentalRequestValidator;
+import com.mobility.india.rentalservice.events.Event;
+import com.mobility.india.rentalservice.events.EventPublisher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +22,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rentals")
 public class RentalController {
     @Autowired
+    EventPublisher eventPublisher;
+    @Autowired
     RentalRepository rentalRepository;
     @Autowired
     RentalService rentalService;
 
-    @PostMapping
+    @PostMapping ("/{rentalId}/start")
     public ResponseEntity<String> beginRent(@RequestHeader("X-TenantID") String tenantId,
                                                  @RequestBody RentalRequest rentalRequest) {
+        //TODO handle tenantID header
+
+        if (!RentalRequestValidator.validate(rentalRequest)) {
+            //Invalid request
+            return ResponseEntity.badRequest().build();
+        }
+
         if (!rentalService.isBikeAvailable(Long.parseLong(rentalRequest.getBikeId()))) {
             return ResponseEntity.badRequest().build();
         }
@@ -41,6 +53,9 @@ public class RentalController {
 
         // Save the rental to the database
         rentalRepository.save(rental);
+
+        // Publish an event indicating rental
+        eventPublisher.publish(new Event(("Rental"+rental.getRentalId()+"strated!").getBytes()));
 
         // Return appropriate response
         return ResponseEntity.ok("Rental aquired Successfully");

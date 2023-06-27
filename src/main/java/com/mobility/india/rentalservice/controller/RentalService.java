@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+/**
+ * Holds the business logic needed, i.e check bike availability based on demand and other aspects
+ */
 public class RentalService {
     @Autowired
     RentalRepository repository;
