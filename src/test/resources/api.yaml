@@ -1,0 +1,215 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Rental Service API
+  description: API for managing rentals
+
+paths:
+  /mobInd/v1.0/rentals/create:
+    post:
+      summary: Create Rental
+      description: Creates a new rental
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vehicle_type:
+                  type: string
+                  description: The type of the vehicle for the rental
+                userId:
+                  type: string
+                  description: The ID of the user initiating the rental
+                rental_type:
+                  type: string
+                  description: The type of the rental
+                citi_id:
+                  type: string
+                  format: uuid
+                  description: The ID of the city
+              required:
+                - vehicle_type
+                - userId
+                - rental_type
+                - citi_id
+      responses:
+        '201':
+          description: Rental created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rentalId:
+                    type: string
+                    description: The ID of the created rental
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /mobInd/v1.0/rentals/{rentalId}/start:
+    post:
+      summary: Begin Rental
+      description: Begins the rental for the specified rental ID
+      parameters:
+        - in: path
+          name: rentalId
+          schema:
+            type: string
+          required: true
+          description: The ID of the rental to begin
+        - in: header
+          name: X-TenantId
+          schema:
+            type: string
+          required: true
+          description: The ID of the tenant
+      responses:
+        '200':
+          description: Rental started successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rentalId:
+                    type: string
+                    description: The ID of the rental
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /mobInd/v1.0/rentals/{rentalId}/end:
+    post:
+      summary: End Rental
+      description: Ends the rental for the specified rental ID
+      parameters:
+        - in: path
+          name: rentalId
+          schema:
+            type: string
+          required: true
+          description: The ID of the rental to end
+        - in: header
+          name: X-TenantId
+          schema:
+            type: string
+          required: true
+          description: The ID of the tenant
+      responses:
+        '200':
+          description: Rental ended successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rentalId:
+                    type: string
+                    description: The ID of the rental
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /mobInd/v1.0/rentals/{rentalId}:
+    get:
+      summary: Get Rental Details
+      description: Retrieves the details of a specific rental
+      parameters:
+        - in: path
+          name: rentalId
+          schema:
+            type: string
+          required: true
+          description: The ID of the rental
+      responses:
+        '200':
+          description: Rental details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalDetails'
+        '404':
+          description: Rental not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /mobInd/v1.0/rentals/models:
+    get:
+      summary: Get Rental Models
+      description: Retrieves the available rental models
+      responses:
+        '200':
+          description: Rental models retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalModels'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message
+        message:
+          type: string
+          description: The detailed error description
+
+    RentalDetails:
+      type: object
+      properties:
+        rentalId:
+          type: string
+          description: The ID of the rental
+        vehicle_type:
+          type: string
+          description: The type of the vehicle for the rental
+        userId:
+          type: string
+          description: The ID of the user who initiated the rental
+        rental_type:
+          type: string
+          description: The type of the rental
+        citi_id:
+          type: string
+          format: uuid
+          description: The ID of the city
+        start_date:
+          type: string
+          format: date-time
+          description: The start date of the rental
+        end_date:
+          type: string
+          format: date-time
+          description: The end date of the rental
+
+    RentalModels:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The list of available rental models

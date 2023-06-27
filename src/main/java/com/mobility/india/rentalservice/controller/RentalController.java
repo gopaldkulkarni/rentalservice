@@ -20,9 +20,16 @@ import org.springframework.web.bind.annotation.*;
 public class RentalController {
     @Autowired
     RentalRepository rentalRepository;
+    @Autowired
+    RentalService rentalService;
+
     @PostMapping
-    public ResponseEntity<String> initiateRental(@RequestHeader("X-TenantID") String tenantId,
+    public ResponseEntity<String> beginRent(@RequestHeader("X-TenantID") String tenantId,
                                                  @RequestBody RentalRequest rentalRequest) {
+        if (!rentalService.isBikeAvailable(Long.parseLong(rentalRequest.getBikeId()))) {
+            return ResponseEntity.badRequest().build();
+        }
+
         // Create a new Rental object
         Rental rental = new Rental();
         rental.setRentalId(UUID.randomUUID().toString());
@@ -36,7 +43,7 @@ public class RentalController {
         rentalRepository.save(rental);
 
         // Return appropriate response
-        return ResponseEntity.ok("Rental initiated successfully");
+        return ResponseEntity.ok("Rental aquired Successfully");
     }
 
     @PostMapping("/{rentalId}/return")
