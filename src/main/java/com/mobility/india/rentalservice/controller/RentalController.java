@@ -55,7 +55,7 @@ public class RentalController {
         rentalRepository.save(rental);
 
         // Publish an event indicating rental
-        eventPublisher.publish(new Event(("Rental"+rental.getRentalId()+"strated!").getBytes()));
+        eventPublisher.publish(new Event(("Rental"+rental.getRentalId()+"started!").getBytes()));
 
         // Return appropriate response
         return ResponseEntity.ok("Rental aquired Successfully");
@@ -75,7 +75,7 @@ public class RentalController {
                 // Calculate rental cost if necessary
                 // Update the rental in the database
                 rentalRepository.save(rental);
-
+                eventPublisher.publish((new Event(("Rental"+rentalId+"Return Requested!").getBytes())));
                 return ResponseEntity.ok("Rental returned successfully");
             } else {
                 return ResponseEntity.badRequest().body("Rental is already returned");
