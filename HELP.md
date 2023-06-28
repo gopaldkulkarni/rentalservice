@@ -13,6 +13,9 @@ The Rental Service uses A notification service to notify if the rental is about 
 It publishes every API invocation as an event to provide realtime analytics and monitoring
 
 #### Low level packages
+![arch_diag](pack.png)
+
 1. Client package - Clients to connect to Bike Service, Kafka, Notification Service
 2. util package - Contains common utilities like JSON parsing etc
 3. scheduler package - We have two background jobs. 1) Periodically archive the completed/cancelled rental records to keep the QPS support high. 2) Keep checking the rental duration expiry. If near to expiry send the push notification.
+4. Event publishing - There are two Event Publishers. 1) To Publish kafka. The Kafka configurations can be added as application variables 2) Notification Publish for push notification. For simplicity one data model called Event is used.
