@@ -7,7 +7,7 @@
 4. API to get available rental models
 
 ## Integration/ High level interaction 
-![arch_diag](highlevel.PNG)
+![arch_diag](highlevel.png)
 The Rental service uses BikeInventoryService (BikeService) to verify the  status of the bike
 The Rental Service uses A notification service to notify if the rental is about to expire. 
 It publishes every API invocation as an event to provide realtime analytics and monitoring
