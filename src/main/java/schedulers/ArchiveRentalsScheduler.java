@@ -1,10 +1,11 @@
 package schedulers;
 
-import com.mobility.india.rentalservice.controller.RentalService;
-import com.mobility.india.rentalservice.events.Event;
-import com.mobility.india.rentalservice.events.EventPublisher;
-import com.mobility.india.rentalservice.model.Rental;
-import com.mobility.india.rentalservice.util.JSonUtil;
+
+import events.Event;
+import events.EventPublisher;
+import model.Rental;
+import service.RentalService;
+import util.JSonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
