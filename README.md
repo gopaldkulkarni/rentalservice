@@ -3,6 +3,7 @@
 The Rental Service is a system that allows users to rent bikes. It follows the hexagonal architecture pattern to separate the business logic from the infrastructure concerns.
 
 ## Architecture Overview
+![arch_diag](highlevel.png)
 
 The system is designed using the following components:
 
