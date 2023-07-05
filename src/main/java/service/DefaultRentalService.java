@@ -21,6 +21,14 @@ import java.util.UUID;
 @Service
 @Transactional
 public class DefaultRentalService implements RentalService {
+    public DeadletterService getDeadletterService() {
+        return deadletterService;
+    }
+
+    public void setDeadletterService(DeadletterService deadletterService) {
+        this.deadletterService = deadletterService;
+    }
+
     @Autowired
     DeadletterService deadletterService;
 

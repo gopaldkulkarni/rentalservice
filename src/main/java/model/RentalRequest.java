@@ -6,6 +6,7 @@ public class RentalRequest {
     private String bikeId;
     private int duration;
 
+
     public void setRentalId(int rentalId) {
         this.rentalId = rentalId;
     }
