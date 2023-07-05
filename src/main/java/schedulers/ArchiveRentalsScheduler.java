@@ -3,6 +3,7 @@ package schedulers;
 
 import events.Event;
 import events.EventPublisher;
+import events.UnpublishedEventException;
 import model.Rental;
 import service.RentalService;
 import util.JSonUtil;
@@ -36,7 +37,11 @@ public class ArchiveRentalsScheduler {
         // Perform the required actions for the scheduled task
         List<Rental> completedRentals = rentalService.getCompletedRentalRecords();
         for(Rental r: completedRentals) {
-            eventPublisher.publish(new Event(JSonUtil.toJson(r).getBytes()));
+            try {
+                eventPublisher.publish(new Event(JSonUtil.toJson(r).getBytes()));
+            } catch (UnpublishedEventException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

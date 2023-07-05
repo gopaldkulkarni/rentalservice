@@ -27,6 +27,7 @@ public class RentalController {
     @PostMapping("/{rentalId}/start")
     public ResponseEntity<String> beginRent(@RequestHeader("X-TenantID") String tenantId,
                                             @RequestBody RentalRequest rentalRequest) {
+        System.out.print("Begin start!!!!!!!");
         if (!RentalRequestValidator.validate(rentalRequest)) {
             // Invalid request
             return ResponseEntity.badRequest().build();

@@ -6,6 +6,16 @@ public class RentalRequest {
     private String bikeId;
     private int duration;
 
+    public void setRentalId(int rentalId) {
+        this.rentalId = rentalId;
+    }
+
+    public int getRentalId() {
+        return rentalId;
+    }
+
+    private int rentalId;
+
     // Getters and setters for the fields
 
     public String getUserId() {

@@ -9,6 +9,7 @@ public class RentalserviceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RentalserviceApplication.class, args);
+		System.out.print("Application started Successfully!");
 	}
 
 }
