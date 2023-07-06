@@ -1,21 +1,12 @@
 package model;
 
+import java.time.LocalDateTime;
 
 public class RentalRequest {
     private String userId;
     private String bikeId;
-    private int duration;
-
-
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
-    }
-
-    public int getRentalId() {
-        return rentalId;
-    }
-
-    private int rentalId;
+    private LocalDateTime startTime;
+    private String tenantId;
 
     // Getters and setters for the fields
 
@@ -35,12 +26,19 @@ public class RentalRequest {
         this.bikeId = bikeId;
     }
 
-    public int getDuration() {
-        return duration;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 }
-

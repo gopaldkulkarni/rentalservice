@@ -21,11 +21,8 @@ import java.util.UUID;
 @Service
 @Transactional
 public class DefaultRentalService implements RentalService {
-    public DeadletterService getDeadletterService() {
-        return deadletterService;
-    }
 
-    public void setDeadletterService(DeadletterService deadletterService) {
+    public void setDeleterService(DeadletterService deadletterService) {
         this.deadletterService = deadletterService;
     }
 
@@ -53,6 +50,9 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
+    /**
+      * We do not need to check for the inventory for start rental process because the bike will be phyically scanned and an assumption is made that two persons wont be scanning the physical bike simultaniously.
+     */
     public void startRental(String tenantId, RentalRequest rentalRequest) {
         Rental rental = new Rental();
         rental.setRentalId(UUID.randomUUID().toString());

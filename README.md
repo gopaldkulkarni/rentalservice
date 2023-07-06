@@ -19,6 +19,8 @@ The system is designed using the following components:
 
 ## Usage
 
+![arch_diag](sequence_final.png)
+
 The Rental Service provides the following operations:
 
 - `POST /rentals/{rentalId}/start`: Starts a new rental for a user.
@@ -27,14 +29,6 @@ The Rental Service provides the following operations:
 - `GET /rentals/user/{userId}`: Retrieves rentals for a specific user.
 - `GET /rentals/bike/{bikeId}/current`: Retrieves the current rental of a bike.
 - `GET /rentals`: Retrieves rentals by tenant.
-
-## Installation
-
-1. Clone the repository: `git clone https://github.com/your/repository.git`
-2. Build the project: `mvn clean install`
-3. Run the application: `java -jar rental-service.jar`
-
-Make sure to configure the necessary dependencies, such as Spring Data JPA, in your project.
 
 ## Dependencies
 
@@ -52,17 +46,5 @@ The Rental Service requires the following configurations:
 - Database: Configure the database connection details in `application.properties` file.
 - Event Publisher: Configure the event publishing mechanism, such as RabbitMQ or Kafka, in `application.properties` file.
 
-## Development
 
-To contribute to the Rental Service, follow these steps:
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b my-branch`
-3. Make changes and commit them: `git commit -m "My changes"`
-4. Push the branch: `git push origin my-branch`
-5. Submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 

@@ -4,6 +4,7 @@ import common.RentalRequestValidator;
 import model.Rental;
 import model.RentalRequest;
 import model.ReturnRequest;
+import service.DeadletterService;
 import service.RentalService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/rentals")
+@RequestMapping(path = "/rentals")
 public class RentalController {
 
+
+    @Autowired
     private final RentalService rentalService;
 
     @Autowired

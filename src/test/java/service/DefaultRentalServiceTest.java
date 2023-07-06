@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import events.Event;
 import events.EventPublisher;
-import events.UnpublishedEvent;
 import events.UnpublishedEventException;
 import repository.UnpublishedEventRepository;
 import model.Rental;
@@ -17,11 +16,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import repository.RentalRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class DefaultRentalServiceTest {
@@ -43,7 +40,7 @@ class DefaultRentalServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         rentalService = new DefaultRentalService(rentalRepository, unpublishedEventRepository, eventPublisher);
-        rentalService.setDeadletterService(deadletterService);
+        rentalService.setDeleterService(deadletterService);
     }
 
     @Test

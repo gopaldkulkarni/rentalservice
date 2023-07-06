@@ -16,10 +16,6 @@ public class RentalRequestValidator {
             return false;
         }
 
-        if (rentalRequest.getDuration() <= 0) {
-            System.out.println("Duration should be greater than zero");
-            return false;
-        }
 
         // Additional validation rules can be added here
 
